@@ -1,0 +1,59 @@
+{
+  "calendarUrl": "https://docs.google.com/spreadsheets/d/e/2PACX-1vTgfwOP36AE_Sm-__diddqsbnME_aIqIGGy-oEzSVpLndUiz8SUW5bkYD9r8qIvaGyfp-loEH817IuC/pubhtml",
+  "calendars": {
+    "guilds":[
+      {
+        "guildId": "123456789012345678",
+        "channelId": "123456789012345678",
+        "messageId": "123456789012345678"
+      }
+    ]
+  },
+  "categories": [
+    "Livestream",
+    "Patch",
+    "Phase 2"
+  ],
+  "games": [
+    {
+      "game": "Genshin Impact",
+      "emoji": "<:genshin:1497236792884330586>",
+      "version": "Unspecified",
+      "timestamps": [
+        { "category": 0, "time": "", "visible": true },
+        { "category": 1, "time": "", "visible": true },
+        { "category": 2, "time": "", "visible": true }
+      ]
+    },
+    {
+      "game": "Honkai: Star Rail",
+      "emoji": "<:hsr:1497236806985318544>",
+      "version": "Unspecified",
+      "timestamps": [
+        { "category": 0, "time": "", "visible": true },
+        { "category": 1, "time": "", "visible": true },
+        { "category": 2, "time": "", "visible": true }
+      ]
+    },
+    {
+      "game": "Zenless Zone Zero",
+      "emoji": "<:zzz:1497236829043429386>",
+      "version": "Unspecified",
+      "timestamps": [
+        { "category": 0, "time": "", "visible": true },
+        { "category": 1, "time": "", "visible": true },
+        { "category": 2, "time": "", "visible": true }
+      ]
+    },
+    {
+      "game": "Wuthering Waves",
+      "emoji": "<:swtChop:1497250236295282749>",
+      "version": "Unspecified",
+      "timestamps": [
+        { "category": 0, "time": "", "visible": true },
+        { "category": 1, "time": "", "visible": true },
+        { "category": 2, "time": "", "visible": true }
+      ]
+    }
+  ]
+}
