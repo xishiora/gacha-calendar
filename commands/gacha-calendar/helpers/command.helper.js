@@ -1,5 +1,5 @@
-const { getGamesData, getCategoriesData } = require('./calendar.data.helper');
-const { 
+const { getGames, getCategories } = require("./calendar.data.helper");
+const {
   ChannelType,
   SlashCommandAttachmentOption,
   SlashCommandBooleanOption,
@@ -9,12 +9,17 @@ const {
   SlashCommandStringOption,
   SlashCommandUserOption,
   PermissionFlagsBits
-} = require('discord.js');
+} = require("discord.js");
 
 // create an object containing the games in the calendar
 // this is used to populate the choices for the game option in the slash command
+
+/**
+ * Creates an array containing the game choices for a /slash command
+ * @returns {Array} choices.
+ */
 function createGameChoices() {
-  let choices = [];
+  const choices = [];
   for (const game of getGames())
     choices.push({ name: game, value: game });
 
@@ -22,20 +27,19 @@ function createGameChoices() {
 }
 
 function createCategoryChoices() {
-  let choices = [];
-  let categories = getCategories();
-  for (const category in categories) {
+  const choices = [];
+  const categories = getCategories();
+  for (const category in categories)
     choices.push({ name: categories[category], value: category });
-  }
 
   return choices;
 }
 
 function buildChannelOptions(optionConfig, channelTypes = ["text"]) {
-  let option = new SlashCommandChannelOption();
+  const option = new SlashCommandChannelOption();
 
-  for (const option of optionConfig) {
-    option[option] = optionConfig[option];
+  for (const opt of optionConfig) {
+    option[opt] = optionConfig[opt];
 
     // not fully implemented don't know if it will work
     channelTypes.forEach(channelType => {
@@ -49,10 +53,10 @@ function buildChannelOptions(optionConfig, channelTypes = ["text"]) {
 }
 
 function buildStringOptions(optionConfig) {
-  let option = new SlashCommandStringOption();
+  const option = new SlashCommandStringOption();
 
-  for (const option of optionConfig)
-    option[option] = optionConfig[option];
+  for (const opt of optionConfig)
+    option[opt] = optionConfig[opt];
   
   return option;
 }

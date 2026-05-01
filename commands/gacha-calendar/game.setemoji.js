@@ -1,28 +1,28 @@
-const {  } = require('./helpers/calendar.data.helper.js')
-const { buildStringOptions } = require('./helpers/command.helper.js');
-const { SlashCommandBuilder, MessageFlags, PermissionFlagsBits } = require('discord.js');
-const { getData, getCalendarsData, getCategoriesData, getGamesData, saveData } = require('../../data/utility/calendar.data.utility.js');
+const { getGames } = require("./helpers/calendar.data.helper.js");
+const { buildStringOptions } = require("./helpers/command.helper.js");
+const { SlashCommandBuilder, MessageFlags, PermissionFlagsBits } = require("discord.js");
+const { getData, getCalendarsData, getCategoriesData, getGamesData, saveData } = require("../../data/utility/calendar.data.utility.js");
 
 const optionConfigs = [
   { name: "game", description: "Game", required: true, autocomplete: true },
   { name: "emoji", description: "Emoji", required: true, autocomplete: true }
 ];
 
-let command = new SlashCommandBuilder()
-    .setName('setemoji')
-    .setDescription('Set emoji')
-    .setDefaultMemberPermissions(PermissionFlagsBits.ManageWebhooks)
+const command = new SlashCommandBuilder()
+  .setName("setemoji")
+  .setDescription("Set emoji")
+  .setDefaultMemberPermissions(PermissionFlagsBits.ManageWebhooks);
 
-optionConfigs.forEach(optionConfig => { 
+optionConfigs.forEach(optionConfig => {
   command.addStringOption(buildStringOptions(optionConfig));
 });
 
 module.exports = {
   data: command,
   async execute(interaction) {
-    const gameSearch = interaction.options.getString('game');
-    const emoji = interaction.options.getString('emoji');
-    let games = getGamesData();
+    const gameSearch = interaction.options.getString("game");
+    const emoji = interaction.options.getString("emoji");
+    const games = getGamesData();
 
     if (!games.includes(gameSearch)) {
       return interaction.reply({
@@ -31,7 +31,7 @@ module.exports = {
       });
     }
     
-    let game = games.find(game => game.game.toLowerCase() === gameSearch.toLowerCase());
+    const gameData = games.find(g => g.game.toLowerCase() === gameSearch.toLowerCase());
     game.emoji = emoji;
 
     saveData();
