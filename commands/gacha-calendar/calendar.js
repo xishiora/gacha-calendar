@@ -5,6 +5,9 @@ const { SlashCommandBuilder, MessageFlags, ChannelType, PermissionFlagsBits, Sla
 
 // import subcommand groups and subcommands
 const { categorySubcommandGroup, executeCategorySubcommands } = require("./subcommands/calendar.category.js");
+const { gameSubcommandGroup, executeGameSubcommands } = require("./subcommands/calendar.game.js");
+const { setEmojiSubcommand, executeSetEmojiSubcommand } = require("./subcommands/calendar.game.setemoji.js");
+const { timestampSubcommandGroup, executeTimestampSubcommands } = require("./subcommands/calendar.timestamp.js");
 
 const channelOptionConfigs = [
   { name: "target", description: "Channel to display the Gacha Calendar in", required: false }
@@ -94,10 +97,13 @@ module.exports = {
   async execute(interaction) {
     const group = interaction.options.getSubcommandGroup();
     switch (group) {
-      case "category": {
+      case "category":
+        // found in subcommands/calendar.category.js
         executeCategorySubcommands(interaction);
         break;
-      }
+      case "game":
+        // found in subcommands/calendar.game.js
+        break;
       default: {
         const client = interaction.client;
         const subcommand = interaction.options.getSubcommand();
@@ -114,10 +120,12 @@ module.exports = {
             handleCalendarEmbed(client, guildId, channelId, interaction);
             break;
           }
-          case "remove": {
+          case "remove":
             removeCalendar(interaction);
             break;
-          }
+          case "setemoji":
+            // do something
+            break;
         }
       }
     }

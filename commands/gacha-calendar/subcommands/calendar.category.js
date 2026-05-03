@@ -28,14 +28,22 @@ categorySubcommands.forEach(subcommand => {
   categorySubcommandGroup.addSubcommand(subcommand);
 });
 
+async function addCategory(interaction) {
+
+}
+
+async function removeCategory(interaction) {
+
+}
+
 async function executeCategorySubcommands(interaction) {
   const subcommand = interaction.options.getSubcommand();
   switch (subcommand) {
     case "add":
-
+      addCategory(interaction);
       break;
     case "remove":
-
+      removeCategory(interaction);
       break;
     default:
       interaction.reply({
