@@ -1,0 +1,5 @@
+// Must contain a categories model with similarities to the data.json
+// Each object and array must be broken down to a singular model for ease of implementation.
+// Whether the model is accessible from other files is optional, 
+// but implementation of getters is not a bad thing, 
+// this one should be rather simple though as it is just an array.
