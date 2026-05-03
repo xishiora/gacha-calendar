@@ -7,9 +7,16 @@ const commands = [];
 // Grab all the command folders from the commands directory you created earlier
 const foldersPath = path.join(__dirname, "commands");
 const commandFolders = fs.readdirSync(foldersPath);
+const nonCommandFolders = [
+  "helpers",
+  "handlers",
+  "subcommands",
+  "wip",
+  "old"
+];
 
 for (const folder of commandFolders) {
-  if (folder === "helpers" || folder === "handlers" || folder === "wip") continue;
+  if (nonCommandFolders.includes(folder)) continue; // Skip non command folders
   
   // Grab all the command files from the commands directory you created earlier
   const commandsPath = path.join(foldersPath, folder);

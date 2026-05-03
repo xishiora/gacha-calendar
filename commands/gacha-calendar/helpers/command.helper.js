@@ -11,12 +11,9 @@ const {
   PermissionFlagsBits
 } = require("discord.js");
 
-// create an object containing the games in the calendar
-// this is used to populate the choices for the game option in the slash command
-
 /**
- * Creates an array containing the game choices for a /slash command
- * @returns {Array} choices.
+ * Creates an Object Array containing the game choices for /slash commands
+ * @returns {Array} Object array with game choices.
  */
 function createGameChoices() {
   const choices = [];
@@ -38,12 +35,12 @@ function createCategoryChoices() {
 function buildChannelOptions(optionConfig, channelTypes = ["text"]) {
   const option = new SlashCommandChannelOption();
 
-  for (const opt of optionConfig) {
-    option[opt] = optionConfig[opt];
+  for (const [key, value] of Object.entries(optionConfig)) {
+    option[key] = value;
 
     // not fully implemented don't know if it will work
     channelTypes.forEach(channelType => {
-      option.channel_types.push(ChannelType.find(
+      option.channel_types?.push(ChannelType.find(
         c => c.constructor.name.toLowerCase().includes(channelType.toLowerCase())
       ));
     });
@@ -55,8 +52,8 @@ function buildChannelOptions(optionConfig, channelTypes = ["text"]) {
 function buildStringOptions(optionConfig) {
   const option = new SlashCommandStringOption();
 
-  for (const opt of optionConfig)
-    option[opt] = optionConfig[opt];
+  for (const [key, value] of Object.entries(optionConfig))
+    option[key] = value;
   
   return option;
 }

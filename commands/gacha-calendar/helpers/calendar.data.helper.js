@@ -8,16 +8,16 @@ let categories = [];
  * @returns {Array} Array containing game names.
  */
 function getGames() {
-  // store gamesData
+  // store games data
   const gamesData = getGamesData();
 
   // populate games array with list of game names from data.json
-  if (games.length === 0) {
+  if (games.length === 0 || games.length > gamesData.length) {
     for (const game of getGamesData())
       games.push(game.game);
-  } else if (games.length < gamesData.length) {
+  } else if (games.length === gamesData.length - 1) {
     // add new game that has been added
-    gamesData.at(-1);
+    games.push(gamesData.at(-1).game);
   }
 
   return games;
@@ -28,7 +28,8 @@ function getGames() {
  * @returns {Array} Array containing categories.
  */
 function getCategories() {
-  if (categories.length === 0 || categories < getCategoriesData().length)
+  const categoriesData = getCategoriesData();
+  if (categories.length === 0 || categories < categoriesData.length)
     categories = getCategoriesData();
   return categories;
 }
