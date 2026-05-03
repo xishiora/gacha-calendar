@@ -3,6 +3,12 @@ const { buildStringOptions, buildChannelOptions } = require("./helpers/command.h
 const { handleCalendarEmbed } = require("./handlers/calendar.embed.handler.js");
 const { SlashCommandBuilder, MessageFlags, ChannelType, PermissionFlagsBits, SlashCommandSubcommandBuilder } = require("discord.js");
 
+// import subcommand groups and subcommands
+const { categorySubcommandGroup, executeCategorySubcommands } = require("./subcommands/calendar.category.js");
+const { gameSubcommandGroup, executeGameSubcommands } = require("./subcommands/calendar.game.js");
+const { setEmojiSubcommand, executeSetEmojiSubcommand } = require("./subcommands/calendar.game.setemoji.js");
+const { timestampSubcommandGroup, executeTimestampSubcommands } = require("./subcommands/calendar.timestamp.js");
+
 const channelOptionConfigs = [
   { name: "target", description: "Channel to display the Gacha Calendar in", required: false }
 ];
@@ -32,6 +38,8 @@ function createCalendarCommand() {
       calendarCommand.addSubcommand(subcommand);
     });
   }
+
+  calendarCommand.addSubcommandGroup(categorySubcommandGroup);
 
   return calendarCommand;
 }
@@ -88,25 +96,38 @@ module.exports = {
   data: createCalendarCommand(),
   async execute(interaction) {
     const group = interaction.options.getSubcommandGroup();
-    if (group) {
-      // do something
-    } else {
-      const client = interaction.client;
-      const subcommand = interaction.options.getSubcommand();
+    switch (group) {
+      case "category":
+        // found in subcommands/calendar.category.js
+        executeCategorySubcommands(interaction);
+        break;
+      case "game":
+        // found in subcommands/calendar.game.js
+        break;
+      default: {
+        const client = interaction.client;
+        const subcommand = interaction.options.getSubcommand();
 
-      if (subcommand === "create") {
-        const guildId = interaction.guildId;
-        // set channel id based on target channel id
-        // if target not set, set to interaction channel id
-        const channelId = interaction.options.getChannel("target") ?
-          interaction.options.getChannel("target").id :
-          interaction.channelId;
-        removeCalendar(interaction, subcommand);
-        handleCalendarEmbed(client, guildId, channelId, interaction);
+        switch (subcommand) {
+          case "create": {
+            const guildId = interaction.guildId;
+            // set channel id based on target channel id
+            // if target not set, set to interaction channel id
+            const channelId = interaction.options.getChannel("target") ?
+              interaction.options.getChannel("target").id :
+              interaction.channelId;
+            removeCalendar(interaction, subcommand);
+            handleCalendarEmbed(client, guildId, channelId, interaction);
+            break;
+          }
+          case "remove":
+            removeCalendar(interaction);
+            break;
+          case "setemoji":
+            // do something
+            break;
+        }
       }
-
-      if (subcommand === "remove")
-        removeCalendar(interaction);
     }
   }
 };
