@@ -19,7 +19,9 @@ const commandFolders = fs.readdirSync(foldersPath);
 const nonCommandFolders = [
   "helpers",
   "handlers",
-  "wip"
+  "subcommands",
+  "wip",
+  "old"
 ];
 
 // Dynamically read command files from the commands folder and set them in the commands collection. 
@@ -37,10 +39,11 @@ for (const folder of commandFolders) {
     const filePath = path.join(commandsPath, file);
     const command = require(filePath);
     // Set command in the collection when containing data and execute properties
-    if ("data" in command && "execute" in command) {client.commands.set(command.data.name, command);} else {
-      // Warn when the command file is missing required properties
+    if ("data" in command && "execute" in command)
+      client.commands.set(command.data.name, command);
+    // Warn when the command file is missing required properties
+    else
       console.log(`[WARNING] The command at ${filePath} is missing a required "data" or "execute" property.`);
-    }
   }
 }
 
